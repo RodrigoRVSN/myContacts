@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Home /> should render home page 1`] = `
+<div>
+  <div
+    class="sc-bdnxRM hZNSoo"
+  >
+    <header
+      class="sc-eCApnc bdNUWk"
+    >
+      <input
+        placeholder="Procure pelo contato"
+        type="text"
+      />
+    </header>
+    <div
+      class="sc-gtsrHT lnOIuu"
+    >
+      <strong>
+        3 contatos
+      </strong>
+      <a
+        href="/new"
+      >
+        Novo Contato
+      </a>
+    </div>
+    <div
+      class="sc-dlnjwi uXPcy"
+    >
+      <header>
+        <button
+          type="button"
+        >
+          <span>
+            Nome
+          </span>
+          <img
+            alt="Arrow"
+            src="arrow.svg"
+          />
+        </button>
+      </header>
+      <div
+        class="sc-hKFxyN jjOrEm"
+      >
+        <div
+          class="info"
+        >
+          <div
+            class="contact-name"
+          >
+            <strong>
+              Rodrigo Victor
+            </strong>
+            <small>
+              Instagram
+            </small>
+          </div>
+          <span>
+            rodrigovictor81@gmail.com
+          </span>
+          <span>
+            (15) 99715-4489
+          </span>
+        </div>
+        <div
+          class="actions"
+        >
+          <a
+            href="/edit/123"
+          >
+            <img
+              alt="edit"
+              src="edit.svg"
+            />
+          </a>
+          <button
+            type="button"
+          >
+            <img
+              alt="trash"
+              src="trash.svg"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

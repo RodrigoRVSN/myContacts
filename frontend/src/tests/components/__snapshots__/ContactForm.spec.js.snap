@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ContactForm /> should render edit contacts page 1`] = `
+<div>
+  <form
+    class="sc-eCApnc hurtkR"
+    novalidate=""
+  >
+    <div
+      class="sc-gtsrHT jaRrUn"
+    >
+      <input
+        class="sc-dlnjwi eBKfJg"
+        placeholder="Nome *"
+        value=""
+      />
+    </div>
+    <div
+      class="sc-gtsrHT jaRrUn"
+    >
+      <input
+        class="sc-dlnjwi eBKfJg"
+        placeholder="E-mail"
+        type="email"
+        value=""
+      />
+    </div>
+    <div
+      class="sc-gtsrHT jaRrUn"
+    >
+      <input
+        class="sc-dlnjwi eBKfJg"
+        maxlength="15"
+        placeholder="Telefone"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      class="sc-gtsrHT jaRrUn"
+    >
+      <select
+        class="sc-hKFxyN bgquXc"
+      >
+        <option
+          value=""
+        >
+          Categoria
+        </option>
+        <option
+          value="discord"
+        >
+          Discord
+        </option>
+        <option
+          value="instagram"
+        >
+          Instagram
+        </option>
+      </select>
+    </div>
+    <div
+      class="sc-jSFjdj eIgFkL"
+    >
+      <button
+        class="sc-bdnxRM ehnIfz"
+        disabled=""
+        type="submit"
+      />
+    </div>
+  </form>
+</div>
+`;

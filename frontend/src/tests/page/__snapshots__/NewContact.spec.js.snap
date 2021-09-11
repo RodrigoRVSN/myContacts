@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NewContact /> should render new contacts page 1`] = `
+<div>
+  <header
+    class="sc-bdnxRM MRUKm"
+  >
+    <a
+      href="/"
+    >
+      <img
+        alt="arrow back"
+        src="arrow.svg"
+      />
+      <span>
+        Voltar
+      </span>
+    </a>
+    <h1>
+      Novo contato
+    </h1>
+  </header>
+  <form
+    class="sc-jSFjdj kLWweY"
+    novalidate=""
+  >
+    <div
+      class="sc-dlnjwi kuwTSj"
+    >
+      <input
+        class="sc-hKFxyN hcprCk"
+        placeholder="Nome *"
+        value=""
+      />
+    </div>
+    <div
+      class="sc-dlnjwi kuwTSj"
+    >
+      <input
+        class="sc-hKFxyN hcprCk"
+        placeholder="E-mail"
+        type="email"
+        value=""
+      />
+    </div>
+    <div
+      class="sc-dlnjwi kuwTSj"
+    >
+      <input
+        class="sc-hKFxyN hcprCk"
+        maxlength="15"
+        placeholder="Telefone"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      class="sc-dlnjwi kuwTSj"
+    >
+      <select
+        class="sc-eCApnc ljWfko"
+      >
+        <option
+          value=""
+        >
+          Categoria
+        </option>
+        <option
+          value="discord"
+        >
+          Discord
+        </option>
+        <option
+          value="instagram"
+        >
+          Instagram
+        </option>
+      </select>
+    </div>
+    <div
+      class="sc-gKAaRy hqCgCr"
+    >
+      <button
+        class="sc-gtsrHT JklIe"
+        disabled=""
+        type="submit"
+      >
+        Cadastrar
+      </button>
+    </div>
+  </form>
+</div>
+`;
