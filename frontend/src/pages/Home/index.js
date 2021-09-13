@@ -1,7 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Container, Header, Card, InputSearchContainer, ListHeader,
+  Container,
+  Header,
+  Card,
+  InputSearchContainer,
+  ListHeader,
 } from './styles';
 
 import arrow from '../../assets/images/icons/arrow.svg';
@@ -16,15 +20,20 @@ export function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
 
-  const filteredContacts = useMemo(() => contacts.filter((contact) => (
-    contact.name.toLowerCase().includes(searchTerm.toLowerCase())
-  )), [contacts, searchTerm]);
+  const filteredContacts = useMemo(
+    () =>
+      contacts.filter((contact) =>
+        contact.name.toLowerCase().includes(searchTerm.toLowerCase())),
+    [contacts, searchTerm],
+  );
 
   useEffect(() => {
     async function loadContacts() {
       try {
         setLoading(true);
+
         const contactsList = await ContactsService.listContacts(orderBy);
+
         setContacts(contactsList);
       } catch (error) {
         console.log('error', error);
@@ -59,7 +68,9 @@ export function Home() {
         <Header>
           <strong>
             {filteredContacts.length > 0
-              ? `${filteredContacts.length} ${filteredContacts.length > 1 ? ' contatos' : ' contato'}`
+              ? `${filteredContacts.length} ${
+                filteredContacts.length > 1 ? ' contatos' : ' contato'
+              }`
               : 'Nenhum contato!'}
           </strong>
           <Link to="/new">Novo Contato</Link>
@@ -79,8 +90,9 @@ export function Home() {
             <div className="info">
               <div className="contact-name">
                 <strong>{contact.name}</strong>
-                {contact.category_name
-                  && <small>{contact.category_name}</small>}
+                {contact.category_name && (
+                  <small>{contact.category_name}</small>
+                )}
               </div>
               <span>{contact.email}</span>
               <span>{contact.phone}</span>
@@ -95,7 +107,6 @@ export function Home() {
             </div>
           </Card>
         ))}
-
       </Container>
     </>
   );

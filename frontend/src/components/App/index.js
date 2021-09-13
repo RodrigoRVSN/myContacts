@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import GlobalStyles from '../../assets/styles/global';
 
 import defaultTheme from '../../assets/styles/themes/default';
-import Routes from '../../routes';
+import Routes from '../../Routes';
 import Header from '../Header';
 import { Container } from './styles';
 
