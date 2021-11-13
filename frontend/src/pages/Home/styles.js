@@ -7,66 +7,68 @@ export const Container = styled.div`
 
 export const Header = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: ${({ hasError }) => (hasError ? 'flex-end' : 'space-between')} ;
   align-items: center;
   margin-top: 2rem;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.primary.lighter};
+  padding-bottom: 1rem;
 
   strong{
-    color: ${({ theme }) => theme.colors?.primary.lighter};
-    font-size: 1.5rem;
-  }
+  color: ${({ theme }) => theme.colors?.primary.lighter};
+  font-size: 1.5rem;
+}
 
   a{
-    color: ${({ theme }) => theme.colors?.primary.main};
-    text-decoration: none;
-    font-weight: bold;
-    border: 2px solid ${({ theme }) => theme.colors?.primary.main};
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    transition: all 0.2s ease-in;
+  color: ${({ theme }) => theme.colors?.primary.main};
+  text-decoration: none;
+  font-weight: bold;
+  border: 2px solid ${({ theme }) => theme.colors?.primary.main};
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease -in;
 
     &:hover{
-      background-color: ${({ theme }) => theme.colors?.primary.main};
-      color: ${({ theme }) => theme.colors?.primary.light};
-    }
+    background-color: ${({ theme }) => theme.colors?.primary.main};
+    color: ${({ theme }) => theme.colors?.primary.light};
   }
+}
 `;
 
 export const ListHeader = styled.header`
-  margin-top: 2rem;
-  margin-bottom: 0.5rem;
+margin-top: 2rem;
+margin-bottom: 0.5rem;
 
     button{
-      background: transparent;
-      border: none;
-      display: flex;
-      align-items: center;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
 
       span{
-        margin-right: 0.5rem;
-        font-weight: bold;
-        color: ${({ theme }) => theme.colors?.primary.light};
-      }
+    margin-right: 0.5rem;
+    font-weight: bold;
+    color: ${({ theme }) => theme.colors?.primary.light};
+  }
 
       img{
-        transition: transform 0.2s ease-in;
-        transform: ${({ orderBy }) => (orderBy === 'asc' ? 'rotate(180deg)' : 'rotate(0deg)')};
-      }
-    }
+    transition: transform 0.2s ease -in;
+    transform: ${({ orderBy }) => (orderBy === 'asc' ? 'rotate(180deg)' : 'rotate(0deg)')};
+  }
+}
 `;
 
 export const Card = styled.div`
-  background: ${({ theme }) => theme.colors?.primary.dark};
-  color: ${({ theme }) => theme.colors?.primary.light};
-  box-shadow: 0px 0.25rem 0.6rem rgba(0, 0, 0, 0.04);
-  padding: 1rem;
-  border-radius: 0.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+background: ${({ theme }) => theme.colors?.primary.dark};
+color: ${({ theme }) => theme.colors?.primary.light};
+box-shadow: 0px 0.25rem 0.6rem rgba(0, 0, 0, 0.04);
+padding: 1rem;
+border-radius: 0.25rem;
+display: flex;
+align-items: center;
+justify-content: space-between;
 
   & + & {
-    margin-top: 1rem;
+  margin-top: 1rem;
   }
 
   .info{
@@ -119,4 +121,21 @@ input{
     color: ${({ theme }) => theme.colors?.primary.lighter};
   }
 }
+`;
+
+export const ErrorContainer = styled.div`
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+
+  .error_container{
+    margin-left: 1.5rem;
+
+    strong{
+      font-size: 1.375rem;
+      margin-bottom: 0.5rem;
+      color: ${({ theme }) => theme.colors.primary.lighter};
+      display: block;
+    }
+  }
 `;
