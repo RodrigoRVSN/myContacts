@@ -1,52 +1,197 @@
-# 📚 Annotations
 
-## 🌐 HTTP
+<details>
+<summary>🚪 Portals</summary>
 
-- SOP -> Same Origin Policy (Política de mesma Origem) in navigators;
-- CORS -> Cross-Origin Resource Sharing (Compartilhamento de Recursos de Origens Cruzadas) - header who can flexibilize the SOP;
-- Origin: protocol://domain:port
-
----
-## 🚪 Portals
-  - With <b>ReactDOM.createPortal</b> we can create a portal using a `id` in `index.html` to overwrite elements of `id root`
+  - With `ReactDOM.createPortal` we can create a portal using a `id` in `index.html` to overwrite elements of `id root`
   - With that, we can ignore CSS rules to do overlays.
   - Used with Loaders, Modals, etc.
+</details>
+
+
 ---
-## ❌ Error treatment
-### Beneficies of `APIError.js` (`APIError extends Error`)
+
+<details>
+<summary>❌ Error treatment</summary>
+
+  ## Beneficies of APIError.js (APIError extends Error)
+
   1. Semantic
   2. Conditional control with `instanceof APIError` (Business Rules)
-  3. Overwrite methods and attributes of Error
+  3. Overwirte methods and attributes of Error
+
+</details>
 
 ---
-## 🆚 Differences between useMemo and useCallback
-### `useMemo`
-  - Re-render the <b>return</b> of the callback function in prevState !== nextState
+
+
+<details>
+<summary>🔨 Service Layer</summary>
+
+- With this, we centralize our requests to break apart of the components.
+
+    ```jsx
+    // ContactsService.js
+    import HttpClient from './utils/HttpClient';
+
+    class ContactsService {
+      constructor() {
+    		// Create the object with the default route of API.
+        this.httpClient = new HttpClient('http://localhost:4000');
+      }
+
+    	// Use the route defined and add endpoints.
+      async listContacts(orderBy = 'asc') {
+        return this.httpClient.get(`/contacts?orderBy=${orderBy}`);
+      }
+    }
+
+    export default new ContactsService();
+    ```
+
+    ```jsx
+    // HttpClient.js
+    import APIError from '../../errors/APIError';
+    import delay from '../../utils/delay';
+
+    class HttpClient {
+    	// baseURL in Cotacts Service
+      constructor(baseURL) {
+        this.baseURL = baseURL;
+      }
+
+      async get(path) {
+        await delay(500);
+
+        const response = await fetch(`${this.baseURL}${path}`);
+        const contentType = response.headers.get('Content-Type');
+
+        let body = null;
+    		// If has json, make the parse.
+        if (contentType.includes('application/json')) {
+          body = await response.json();
+        }
+
+    		// If not json, return null
+        if (response.ok) {
+          return body;
+        }
+
+    		// If not ok, return APIError
+        throw new APIError(response, body);
+      }
+    }
+    export default HttpClient;
+    ```
+
+    ```jsx
+    // APIError.js, to create a new intanceof Error
+    export default class APIError extends Error {
+      constructor(response, body) {
+        super();
+
+        this.name = 'APIError';
+        this.response = response;
+        this.body = body;
+        this.message = body?.error || `${response.status} - ${response.statusText}`;
+      }
+    }
+    ```
+
+</details>
+
+---
+
+<details>
+<summary>🆚 Differences between</summary>
+
+---
+
+  ## 🧠 useMemo x useCallback
+  ## `useMemo`
+  - Re-render the return of the callback function in `prevState !== nextState`
   - If i want to memorize informations
-
-### `useCallback`
-  - Re-render the <b>callback function</b> in prevState !== nextState
-prevState !== nextState
+  ## `useCallback`
+  - Re-render the callback function in `prevState !== nextState`
   - If i want to memorize functions
+  ## 💻 useEffect x useLayoutEffect
+  ## `useEffect`
+  - Don't Lock renderizing, because is assynchronous and executed after layout rendering.
+  ## `useLayoutEffect`
+  - Lock renderizing, because is synchronous and executed before layout rendering.
+</details>
 
 ---
-# 🧐 Casting
 
-- With the casting, we can **change the data type** of a value to another data type.
-- We **can't trust in this** method to conditional rendering, because the second parameter **can be renderized** in a Short Circuit Evaluation (`&&`), like in the example below:
+<details>
+<summary>🧐 Casting</summary>
+
+  - With the casting, we can change the data type of a value to another data type.
+  - We can't trust in this method to conditional rendering, because the second parameter can be renderized in a Short Circuit Evaluation (`&&`), like in the example below:
 
     ❌ `{(contacts.length > 0 && filteredContacts.length) && <h1>hi</h1} // doesn't make cast`
 
     ✅ `{(contacts.length > 0 && filteredContacts.length > 0) && <h1>hi</h1>} // make a cast and compare`
+  - *Obs: `!!` represents a casting to a boolean type. `(0 -> true -> false)`*
 
-- *Obs: `!!` represents a casting to a boolean type. `(0 -> true -> false)`*
+  ```jsx
+      // Truthy -> 1, -1, ' ', [], {}, () => {}
+      // Falsy -> 0, null, NaN, undefined, '', false
+  ```
 
-    ```jsx
-    Truthy -> 1, -1, ' ', [], {}, () => {}
-    Falsy -> 0, null, NaN, undefined, '', false
-    ```
+</details>
+
 ---
-# 🖼️ SVG optimize
 
-- Using [SVGOMG - SVGO's Missing GUI (jakearchibald.github.io)](https://jakearchibald.github.io/svgomg/) we can **optimize svg's content.**
-- With this, we make the application **render faster** (less bytes to download in the browser)
+<details>
+<summary>🖼️ SVG optimize</summary>
+
+  - Using [SVGOMG - SVGO's Missing GUI (jakearchibald.github.io)](https://jakearchibald.github.io/svgomg/) we can optimize svg's content.
+  - With this, we make the application render faster (less bytes to download in the browser)
+</details>
+
+---
+
+<details>
+<summary>💼 Businesses Rules</summary>
+
+  - We need to apply the business rules in the Back-end and the Front-end.
+  - In the client side, we not send invalid informations, like a e-mail without `@` . With this, we save unnecessary recurses from the Back-end. In the Back-end Serverless, has so much more impact.
+</details>
+
+---
+
+<details>
+<summary>🌐 HTTP</summary>
+
+  - SOP -> Same Origin Policy (Política de mesma Origem) in navigators;
+  - CORS -> Cross-Origin Resource Sharing (Compartilhamento de Recursos de Origens Cruzadas) - header who can flexibilize the SOP;
+  - Origin: *protocol://domain:port*
+</details>
+
+---
+
+<details>
+<summary>🆚 Simple vs Preflighted requests</summary>
+
+  * With this, the browser don't make Preflighted requests (like DELETE) in the Back-end when we get a Not Permitted error, f.e.
+  - Simple → GET, HEAD, POST
+  - Preflighted → Others
+
+
+```jsx
+    // in the back-end: (cors.js)
+    module.exports = (request, response, next) => {
+      response.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+      // allow methods
+      response.setHeader('Access-Control-Allow-Methods', '*');
+      // header parameter
+      response.setHeader('Access-Control-Allow-Headers', 'x-app-id');
+      // cache, with -1 not have cache
+      response.setHeader('Access-Control-Max-Age', '10');
+      next();
+    }
+```
+</details>
+
+
+---
