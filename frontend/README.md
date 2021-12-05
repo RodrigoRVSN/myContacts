@@ -29,3 +29,24 @@
 prevState !== nextState
   - If i want to memorize functions
 
+---
+# 🧐 Casting
+
+- With the casting, we can **change the data type** of a value to another data type.
+- We **can't trust in this** method to conditional rendering, because the second parameter **can be renderized** in a Short Circuit Evaluation (`&&`), like in the example below:
+
+    ❌ `{(contacts.length > 0 && filteredContacts.length) && <h1>hi</h1} // doesn't make cast`
+
+    ✅ `{(contacts.length > 0 && filteredContacts.length > 0) && <h1>hi</h1>} // make a cast and compare`
+
+- *Obs: `!!` represents a casting to a boolean type. `(0 -> true -> false)`*
+
+    ```jsx
+    Truthy -> 1, -1, ' ', [], {}, () => {}
+    Falsy -> 0, null, NaN, undefined, '', false
+    ```
+---
+# 🖼️ SVG optimize
+
+- Using [SVGOMG - SVGO's Missing GUI (jakearchibald.github.io)](https://jakearchibald.github.io/svgomg/) we can **optimize svg's content.**
+- With this, we make the application **render faster** (less bytes to download in the browser)

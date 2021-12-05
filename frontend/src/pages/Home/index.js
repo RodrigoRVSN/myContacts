@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, {
   useCallback, useEffect, useMemo, useState,
 } from 'react';
@@ -9,12 +10,16 @@ import {
   InputSearchContainer,
   ListHeader,
   ErrorContainer,
+  NoContactsContainer,
+  NotFoundFilteredContacts,
 } from './styles';
 
 import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
 import sad from '../../assets/images/sad.svg';
+import emptyBox from '../../assets/images/empty-box.svg';
+import magnifierQuestion from '../../assets/images/magnifier-question.svg';
 
 import { Loader } from '../../components/Loader';
 import ContactsService from '../../services/ContactsService';
@@ -37,7 +42,6 @@ export function Home() {
   const loadContacts = useCallback(async () => {
     try {
       setLoading(true);
-
       const contactsList = await ContactsService.listContacts(orderBy);
 
       setError(false);
@@ -69,24 +73,34 @@ export function Home() {
     <>
       <Container>
         <Loader isLoading={loading} />
-        <InputSearchContainer>
-          <input
-            value={searchTerm}
-            onChange={(ev) => handleChangeSearchTerm(ev)}
-            type="text"
-            placeholder="Procure pelo contato"
-          />
-        </InputSearchContainer>
-        <Header hasError={hasError}>
-          {!hasError
-            && (
-              <strong>
-                {filteredContacts.length > 0
-                  ? `${filteredContacts.length} ${filteredContacts.length > 1 ? ' contatos' : ' contato'
-                  }`
-                  : 'Nenhum contato!'}
-              </strong>
-            )}
+
+        {contacts.length > 0 && (
+          <InputSearchContainer>
+            <input
+              value={searchTerm}
+              onChange={(ev) => handleChangeSearchTerm(ev)}
+              type="text"
+              placeholder="Procure pelo contato"
+            />
+          </InputSearchContainer>
+        )}
+
+        <Header justifyContent={
+          hasError
+            ? 'flex-end'
+            : (contacts.length > 0
+              ? 'space-between'
+              : 'center')
+        }
+        >
+          {(!hasError && contacts.length > 0) && (
+            <strong>
+              {filteredContacts.length > 0
+                ? `${filteredContacts.length} ${filteredContacts.length > 1 ? ' contatos' : ' contato'
+                }`
+                : 'Nenhum contato!'}
+            </strong>
+          )}
           <Link to="/new">Novo Contato</Link>
         </Header>
 
@@ -102,6 +116,17 @@ export function Home() {
 
         {!hasError && (
           <>
+            {contacts.length < 1 && (
+              <NoContactsContainer>
+                <img src={emptyBox} alt="Sem contatos" />
+                <p>
+                  Você ainda não tem nenhum contato cadastrado!
+                  Clique no botão <strong>”Novo contato”</strong> à cima
+                  para cadastrar o seu primeiro!
+                </p>
+              </NoContactsContainer>
+            )}
+
             {filteredContacts.length > 0 && (
               <ListHeader orderBy={orderBy}>
                 <button onClick={handleToggleOrderBy} type="button">
@@ -110,6 +135,16 @@ export function Home() {
                 </button>
               </ListHeader>
             )}
+
+            {(contacts.length > 0 && filteredContacts.length < 1)
+              && (
+                <NotFoundFilteredContacts>
+                  <img src={magnifierQuestion} alt="magnifierQuestion" />
+                  <span>
+                    Nenhum resultado foi encontrado para <b>{searchTerm}</b>.
+                  </span>
+                </NotFoundFilteredContacts>
+              )}
 
             {filteredContacts.map((contact) => (
               <Card key={contact.id}>

@@ -7,7 +7,7 @@ export const Container = styled.div`
 
 export const Header = styled.div`
   display: flex;
-  justify-content: ${({ hasError }) => (hasError ? 'flex-end' : 'space-between')} ;
+  justify-content: ${({ justifyContent }) => justifyContent};
   align-items: center;
   margin-top: 2rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.primary.lighter};
@@ -137,5 +137,35 @@ export const ErrorContainer = styled.div`
       color: ${({ theme }) => theme.colors.primary.lighter};
       display: block;
     }
+  }
+`;
+
+export const NoContactsContainer = styled.div`
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  p {
+    text-align: center;
+    margin-top: 0.5rem;
+    line-height: 1.5;
+    color: ${({ theme }) => theme.colors.primary.light};
+
+    strong{
+      color: ${({ theme }) => theme.colors.primary.lighter};
+    }
+  }
+`;
+
+export const NotFoundFilteredContacts = styled.div`
+  margin-top: 1rem;
+  display: flex;
+  align-items: flex-start;
+
+  span {
+    margin-left: 1.5rem;
+    color: ${({ theme }) => theme.colors.primary.light};
+    word-break: break-all;
   }
 `;
