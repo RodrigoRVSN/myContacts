@@ -36,6 +36,8 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "class-methods-use-this": "off",
-    "implicit-arrow-linebreak": "off"
+    "implicit-arrow-linebreak": "off",
+    "linebreak-style": 0,
+    "no-empty": ["error", { "allowEmptyCatch": true }]
   }
 }

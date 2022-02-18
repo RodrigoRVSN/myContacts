@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '../Button';
@@ -9,12 +9,14 @@ import { ButtonContainer, Form } from './styles';
 import isEmailValid from '../../utils/isEmailValid';
 import useErrors from '../../hooks/useErrors';
 import formatPhone from '../../utils/formatPhone';
+import CategoriesService from '../../services/CategoriesService';
 
 export function ContactForm({ buttonLabel = '' }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [category, setCategory] = useState('');
+  const [categoryId, setCategoryId] = useState('');
+  const [categories, setCategoreis] = useState([]);
 
   const {
     setError,
@@ -53,13 +55,24 @@ export function ContactForm({ buttonLabel = '' }) {
   }
 
   function handleCategoryChange(event) {
-    setCategory(event.target.value);
+    setCategoryId(event.target.value);
     if (event.target.value && !isEmailValid(event.target.value)) {
       setError({ field: 'email', message: 'E-mail inválido' });
     } else {
       removeError('email');
     }
   }
+
+  useEffect(() => {
+    async function loadCategories() {
+      try {
+        const categoriesList = await CategoriesService.listCategories();
+        setCategoreis(categoriesList);
+      } catch {}
+    }
+
+    loadCategories();
+  }, []);
 
   return (
     <>
@@ -96,11 +109,13 @@ export function ContactForm({ buttonLabel = '' }) {
         <FormGroup>
           <Select
             onChange={handleCategoryChange}
-            value={category}
+            value={categoryId}
           >
-            <option value="">Categoria</option>
-            <option value="discord">Discord</option>
-            <option value="instagram">Instagram</option>
+            <option value="">Sem categoria</option>
+
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>{category.name}</option>
+            ))}
           </Select>
         </FormGroup>
 
