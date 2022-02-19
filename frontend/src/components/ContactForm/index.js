@@ -16,7 +16,7 @@ export function ContactForm({ buttonLabel = '' }) {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [categoryId, setCategoryId] = useState('');
-  const [categories, setCategoreis] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const {
     setError,
@@ -56,18 +56,13 @@ export function ContactForm({ buttonLabel = '' }) {
 
   function handleCategoryChange(event) {
     setCategoryId(event.target.value);
-    if (event.target.value && !isEmailValid(event.target.value)) {
-      setError({ field: 'email', message: 'E-mail inválido' });
-    } else {
-      removeError('email');
-    }
   }
 
   useEffect(() => {
     async function loadCategories() {
       try {
         const categoriesList = await CategoriesService.listCategories();
-        setCategoreis(categoriesList);
+        setCategories(categoriesList);
       } catch {}
     }
 
@@ -112,7 +107,6 @@ export function ContactForm({ buttonLabel = '' }) {
             value={categoryId}
           >
             <option value="">Sem categoria</option>
-
             {categories.map((category) => (
               <option key={category.id} value={category.id}>{category.name}</option>
             ))}
