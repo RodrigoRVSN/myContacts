@@ -1,23 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from './styles';
+import { LoadingSpinner } from '../LoadingSpinner';
 
-export function FormGroup({ children, error }) {
+export function FormGroup({ children, error, isLoading }) {
   return (
-    <>
-      <Container>
+    <Container>
+      <div className="form-item">
         {children}
-        {error && <small>{error}</small>}
-      </Container>
-    </>
+        {isLoading && (
+        <div className="loader-container">
+          <LoadingSpinner />
+        </div>
+        )}
+
+      </div>
+
+      {error && <small>{error}</small>}
+    </Container>
   );
 }
 
 FormGroup.propTypes = {
   children: PropTypes.node.isRequired,
   error: PropTypes.node,
+  isLoading: PropTypes.bool,
 };
 
 FormGroup.defaultProps = {
   error: null,
+  isLoading: false,
 };

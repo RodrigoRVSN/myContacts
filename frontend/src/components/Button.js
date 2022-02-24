@@ -24,7 +24,7 @@ export default styled.button`
 
   &[disabled] {
     cursor: default;
-    background: #ccc;
+    background: ${({ theme }) => theme.colors?.disabled};
     color: ${({ theme }) => theme.colors?.primary.main};
   }
 

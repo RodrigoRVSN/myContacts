@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { LoadingSpinner } from '../LoadingSpinner';
 import { Overlay } from './styles';
 
 export function Loader({ isLoading }) {
@@ -9,7 +10,7 @@ export function Loader({ isLoading }) {
   return ReactDOM.createPortal(
     <>
       <Overlay>
-        <div className="loader" />
+        <LoadingSpinner size={90} />
       </Overlay>
     </>,
     document.getElementById('loader-root'),

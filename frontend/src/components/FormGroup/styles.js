@@ -12,4 +12,13 @@ export const Container = styled.div`
     margin-top: 0.5rem;
   }
 
+  .form-item {
+    position: relative;
+
+    .loader-container {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+    }
+  }
 `;
