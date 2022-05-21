@@ -11,7 +11,7 @@ import useErrors from '../../hooks/useErrors';
 import formatPhone from '../../utils/formatPhone';
 import CategoriesService from '../../services/CategoriesService';
 
-export function ContactForm({ buttonLabel = '' }) {
+export function ContactForm({ buttonLabel = '', onSubmit }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -28,8 +28,11 @@ export function ContactForm({ buttonLabel = '' }) {
 
   const isFormValid = (name && errors.length === 0);
 
-  function handleSubmit() {
-    console.log('teste');
+  function handleSubmit(event) {
+    event.preventDefault();
+    onSubmit({
+      name, email, phone, categoryId,
+    });
   }
 
   function handleNameChange(event) {
@@ -73,60 +76,59 @@ export function ContactForm({ buttonLabel = '' }) {
   }, []);
 
   return (
-    <>
-      <Form onSubmit={handleSubmit} noValidate>
-        <FormGroup error={getErrorMessageByFieldName('name')}>
-          <Input
-            error={getErrorMessageByFieldName('name')}
-            placeholder="Nome *"
-            onChange={handleNameChange}
-            value={name}
-          />
-        </FormGroup>
+    <Form onSubmit={handleSubmit} noValidate>
+      <FormGroup error={getErrorMessageByFieldName('name')}>
+        <Input
+          error={getErrorMessageByFieldName('name')}
+          placeholder="Nome *"
+          onChange={handleNameChange}
+          value={name}
+        />
+      </FormGroup>
 
-        <FormGroup error={getErrorMessageByFieldName('email')}>
-          <Input
-            type="email"
-            error={getErrorMessageByFieldName('email')}
-            placeholder="E-mail"
-            onChange={handleEmailChange}
-            value={email}
-          />
-        </FormGroup>
+      <FormGroup error={getErrorMessageByFieldName('email')}>
+        <Input
+          type="email"
+          error={getErrorMessageByFieldName('email')}
+          placeholder="E-mail"
+          onChange={handleEmailChange}
+          value={email}
+        />
+      </FormGroup>
 
-        <FormGroup>
-          <Input
-            type="text"
-            placeholder="Telefone"
-            onChange={handlePhoneChange}
-            value={phone}
-            maxLength="15"
-          />
-        </FormGroup>
+      <FormGroup>
+        <Input
+          type="text"
+          placeholder="Telefone"
+          onChange={handlePhoneChange}
+          value={phone}
+          maxLength="15"
+        />
+      </FormGroup>
 
-        <FormGroup isLoading={isLoadingCategories}>
-          <Select
-            onChange={handleCategoryChange}
-            value={categoryId}
-            disabled={isLoadingCategories}
-          >
-            <option value="">Sem categoria</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>{category.name}</option>
-            ))}
-          </Select>
-        </FormGroup>
+      <FormGroup isLoading={isLoadingCategories}>
+        <Select
+          onChange={handleCategoryChange}
+          value={categoryId}
+          disabled={isLoadingCategories}
+        >
+          <option value="">Sem categoria</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>{category.name}</option>
+          ))}
+        </Select>
+      </FormGroup>
 
-        <ButtonContainer>
-          <Button type="submit" disabled={!isFormValid}>{buttonLabel}</Button>
-        </ButtonContainer>
-      </Form>
-    </>
+      <ButtonContainer>
+        <Button type="submit" disabled={!isFormValid}>{buttonLabel}</Button>
+      </ButtonContainer>
+    </Form>
   );
 }
 
 ContactForm.propTypes = {
   buttonLabel: PropTypes.string,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 ContactForm.defaultProps = {

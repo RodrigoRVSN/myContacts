@@ -41,7 +41,7 @@
   ```jsx
 
   // Create container + imagem
-  docker run --name pg -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -p5432:5432 -d postgres
+  docker run --name pg -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -p 5432:5432 -d postgres
 
   // List all containers in the machine ACTIVE
   docker container ls
