@@ -23,7 +23,8 @@ export const Form = styled.form`
 
 export const ButtonContainer = styled.div`
   margin-top: 2rem;
-  button{
+
+  button {
     width: 100%;
   }
 `;

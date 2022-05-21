@@ -23,4 +23,10 @@ export default styled.input`
     color: ${theme.colors?.danger.light};
     border-color: ${theme.colors?.danger.dark} !important;
   `}
+
+  &[disabled] {
+    background:  ${({ theme }) => theme.colors?.primary.dark};
+    border-color: ${({ theme }) => theme.colors?.primary.main};
+    opacity: 1;
+  }
 `;

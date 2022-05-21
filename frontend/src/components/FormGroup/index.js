@@ -8,12 +8,12 @@ export function FormGroup({ children, error, isLoading }) {
     <Container>
       <div className="form-item">
         {children}
-        {isLoading && (
-        <div className="loader-container">
-          <LoadingSpinner />
-        </div>
-        )}
 
+        {isLoading && (
+          <div className="loader-container">
+            <LoadingSpinner />
+          </div>
+        )}
       </div>
 
       {error && <small>{error}</small>}
