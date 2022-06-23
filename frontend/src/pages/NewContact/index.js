@@ -2,6 +2,7 @@ import React from 'react';
 import { PageHeader } from '../../components/PageHeader';
 import { ContactForm } from '../../components/ContactForm';
 import ContactsService from '../../services/ContactsService';
+import { toast } from '../../utils/toast';
 
 export function NewContact() {
   async function handleSubmit(formData) {
@@ -13,10 +14,10 @@ export function NewContact() {
         category_id: formData.categoryId,
       };
 
-      const response = await ContactsService.createContact(contact);
-      console.log({ response });
+      await ContactsService.createContact(contact);
+      toast({ type: 'success', text: 'Cadastro efetuado!' });
     } catch (error) {
-      console.log(error);
+      toast({ type: 'danger', text: 'Houve um erro!' });
     }
   }
 
