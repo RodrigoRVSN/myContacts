@@ -10,7 +10,7 @@ export const ToastMessage = ({ message, onDeleteToast }) => {
   };
 
   return (
-    <Container type={message.type} onClick={handleClickMessage}>
+    <Container type={message.type} onClick={handleClickMessage} tabIndex={0} role="button">
       {message.type === 'danger' && <img src={xCircleIcon} alt="X" />}
       {message.type === 'success' && <img src={checkCircleIcon} alt="X" />}
       <strong>{message.text}</strong>
