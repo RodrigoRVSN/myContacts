@@ -6,16 +6,24 @@ class HttpClient {
     this.baseURL = baseURL;
   }
 
-  async get(path, options) {
+  get(path, options) {
     return this.makeRequest(path, {
       method: 'GET',
       headers: options?.headers,
     });
   }
 
-  async post(path, options) {
+  post(path, options) {
     return this.makeRequest(path, {
       method: 'POST',
+      body: options?.body,
+      headers: options?.headers,
+    });
+  }
+
+  put(path, options) {
+    return this.makeRequest(path, {
+      method: 'PUT',
       body: options?.body,
       headers: options?.headers,
     });

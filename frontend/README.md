@@ -193,5 +193,20 @@
 ```
 </details>
 
+---
+
+<details>
+<summary>⬆️ State Lifting</summary>
+
+ # How to pass the children to the father?
+
+ 1- State Lifting -> Create the states in the father and pass to children by props. Its a simple way, but has problems if we have so much code duplication and need a lot of refactoring to do that.
+
+ 2- Derived States -> A state starts with a value from the props (use the key property to rerender the states, unmount and mount the interface)
+
+ 3- Imperative Code -> use a ref with forward ref (useImperativeHandle)
+
+</details>
+
 
 ---
