@@ -1,18 +1,24 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { LoadingSpinner } from '../LoadingSpinner';
+import { ReactPortal } from '../ReactPortal';
 import { Overlay } from './styles';
 
 export function Loader({ isLoading }) {
   if (!isLoading) {
     return null;
   }
-  return ReactDOM.createPortal(
-    <>
+
+  return (
+    <ReactPortal containerId="loader-root">
+
       <Overlay>
         <LoadingSpinner size={90} />
       </Overlay>
-    </>,
-    document.getElementById('loader-root'),
+    </ReactPortal>
   );
 }
+
+Loader.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+};

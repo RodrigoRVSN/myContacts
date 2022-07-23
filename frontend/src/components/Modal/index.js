@@ -1,16 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { Container, Overlay, Footer } from './styles';
 import Button from '../Button';
+import { ReactPortal } from '../ReactPortal';
 
 export function Modal({
   danger, title, children, isLoading, cancelLabel, confirmLabel, onCancel, onConfirm, isVisible,
 }) {
   if (!isVisible) return null;
 
-  return ReactDOM.createPortal(
-    <>
+  return (
+    <ReactPortal containerId="modal-root">
       <Overlay>
         <Container danger={danger}>
           <h1>{title}</h1>
@@ -38,8 +38,7 @@ export function Modal({
           </Footer>
         </Container>
       </Overlay>
-    </>,
-    document.getElementById('modal-root'),
+    </ReactPortal>
   );
 }
 
