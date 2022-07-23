@@ -97,7 +97,7 @@ export const ContactForm = forwardRef(({ buttonLabel = '', onSubmit }, ref) => {
     }
 
     loadCategories();
-  }, []);
+  }, [setCategories, setIsLoadingCategories]);
 
   return (
     <Form onSubmit={handleSubmit} noValidate>
