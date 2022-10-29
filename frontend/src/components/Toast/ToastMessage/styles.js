@@ -11,6 +11,17 @@ const fadeIn = keyframes`
   }
 `;
 
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+`;
+
 const containerVariants = {
   default: css`
     background: ${({ theme }) => theme.colors.primary.main};
@@ -33,6 +44,8 @@ export const Container = styled.div`
   justify-content: center;
   cursor: pointer;
   animation: ${fadeIn} 0.3s;
+
+  ${({ isLeaving }) => isLeaving && css`animation: ${fadeOut} 0.2s;`}
 
   ${({ type }) => containerVariants[type] || containerVariants.default}
 

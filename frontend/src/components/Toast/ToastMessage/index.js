@@ -1,25 +1,50 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Container } from './styles';
 
 import xCircleIcon from '../../../assets/images/icons/x-circle.svg';
 import checkCircleIcon from '../../../assets/images/icons/check-circle.svg';
 
-export const ToastMessage = ({ message, onDeleteToast }) => {
+export const ToastMessage = ({
+  message,
+  onRemoveMessage,
+  isLeaving,
+  onAnimationEnd,
+}) => {
+  const animationElementRef = useRef(null);
+
+  useEffect(() => {
+    const handleAnimationEnd = () => onAnimationEnd(message.id);
+
+    const elementRef = animationElementRef.current;
+    if (isLeaving) {
+      elementRef.addEventListener('animationend', handleAnimationEnd);
+    }
+
+    return () => elementRef.removeEventListener('animationend', handleAnimationEnd);
+  }, [isLeaving, message.id, onAnimationEnd]);
+
   useEffect(() => {
     const timeout = setTimeout(() => {
-      onDeleteToast(message.id);
+      onRemoveMessage(message.id);
     }, message.duration || 5000);
 
     return () => clearTimeout(timeout);
-  }, [message, onDeleteToast]);
+  }, [message, onRemoveMessage]);
 
   const handleClickMessage = () => {
-    onDeleteToast(message.id);
+    onRemoveMessage(message.id);
   };
 
   return (
-    <Container type={message.type} onClick={handleClickMessage} tabIndex={0} role="button">
+    <Container
+      type={message.type}
+      onClick={handleClickMessage}
+      tabIndex={0}
+      role="button"
+      isLeaving={isLeaving}
+      ref={animationElementRef}
+    >
       {message.type === 'danger' && <img src={xCircleIcon} alt="X" />}
       {message.type === 'success' && <img src={checkCircleIcon} alt="X" />}
       <strong>{message.text}</strong>
@@ -34,5 +59,7 @@ ToastMessage.propTypes = {
     id: PropTypes.number,
     duration: PropTypes.number,
   }).isRequired,
-  onDeleteToast: PropTypes.func.isRequired,
+  onRemoveMessage: PropTypes.func.isRequired,
+  isLeaving: PropTypes.bool.isRequired,
+  onAnimationEnd: PropTypes.func.isRequired,
 };
