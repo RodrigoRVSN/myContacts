@@ -39,3 +39,18 @@ ___
 
 
 ---
+
+<details>
+<summary>🗺️ Container/Presentational Component Pattern</summary>
+
+- Logic + UI mixed
+- Big Components
+- More chances to break the code
+- Manutability and scability worst
+- Components with so much responsability (SRP of SOLID)
+- The objective of this pattern is to **break apart Logic and the UI**
+
+</details>
+
+
+---
