@@ -16,8 +16,8 @@ class ContactMapper {
       email: persistenceContact.email,
       phone: persistenceContact.phone,
       category: {
-        id: persistenceContact.id,
-        name: persistenceContact.name,
+        id: persistenceContact.category_id,
+        name: persistenceContact.category_name,
       },
     };
   }

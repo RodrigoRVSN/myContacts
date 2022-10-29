@@ -22,7 +22,7 @@ Button.propTypes = {
   disabled: PropTypes.bool,
   isLoading: PropTypes.bool,
   danger: PropTypes.bool,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   children: PropTypes.node.isRequired,
 };
 
@@ -31,4 +31,5 @@ Button.defaultProps = {
   disabled: false,
   isLoading: false,
   danger: false,
+  onClick: null,
 };

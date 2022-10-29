@@ -9,7 +9,7 @@ export const useHome = () => {
   const [contacts, setContacts] = useState([]);
   const [orderBy, setOrderBy] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [hasError, setError] = useState(false);
   const [isDeleteModalVisible, setIsModalVisible] = useState(false);
   const [contactBeingDeleted, setContactBeingDeleted] = useState(null);
@@ -24,15 +24,16 @@ export const useHome = () => {
 
   const loadContacts = useCallback(async () => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       const contactsList = await ContactsService.listContacts(orderBy);
 
       setError(false);
       setContacts(contactsList);
     } catch (error) {
       setError(true);
+      setContacts([]);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }, [orderBy]);
 
@@ -79,7 +80,7 @@ export const useHome = () => {
   }
 
   return {
-    loading,
+    isLoading,
     isDeleteModalVisible,
     contactBeingDeleted,
     handleToggleDeleteModal,

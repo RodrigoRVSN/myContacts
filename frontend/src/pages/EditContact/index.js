@@ -4,7 +4,7 @@ import { Loader } from '../../components/Loader';
 import { PageHeader } from '../../components/PageHeader';
 import { useEditContact } from './useEditContact';
 
-export function EditContact() {
+export default function EditContact() {
   const {
     isLoading, contactName, contactForm, handleSubmit,
   } = useEditContact();
