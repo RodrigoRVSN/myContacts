@@ -7,15 +7,8 @@ import { toast } from '../../utils/toast';
 export function NewContact() {
   const contactForm = useRef(null);
 
-  async function handleSubmit(formData) {
+  async function handleSubmit(contact) {
     try {
-      const contact = {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        category_id: formData.categoryId,
-      };
-
       await ContactsService.createContact(contact);
       contactForm.current.resetFields();
 
@@ -28,7 +21,11 @@ export function NewContact() {
   return (
     <>
       <PageHeader title="Novo contato" />
-      <ContactForm buttonLabel="Cadastrar" onSubmit={handleSubmit} ref={contactForm} />
+      <ContactForm
+        buttonLabel="Cadastrar"
+        onSubmit={handleSubmit}
+        ref={contactForm}
+      />
     </>
   );
 }
