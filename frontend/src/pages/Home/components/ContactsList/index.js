@@ -18,7 +18,7 @@ export const ContactsList = ({
         </button>
       </ListHeader>
     )}
-    {console.log(filteredContacts)}
+
     {filteredContacts.map((contact) => (
       <Card key={contact.id}>
         <div className="info">
