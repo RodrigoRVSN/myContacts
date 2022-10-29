@@ -1,16 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useSafeAsyncAction } from '../../hooks/useSafeAsyncAction';
 import ContactsService from '../../services/ContactsService';
 import { toast } from '../../utils/toast';
-import Presentation from './Presentation';
 
-export default function EditContact() {
+export const useEditContact = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [contactName, setContactName] = useState('');
   const { id } = useParams();
   const history = useHistory();
-  const contactFormRef = useRef(null);
+  const contactForm = useRef(null);
   const safeAsyncAction = useSafeAsyncAction();
 
   useEffect(() => {
@@ -19,7 +18,7 @@ export default function EditContact() {
         const contact = await ContactsService.getContactById(id);
 
         safeAsyncAction(() => {
-          contactFormRef.current.setFieldValues(contact);
+          contactForm.current.setFieldValues(contact);
           setContactName(contact.name);
           setIsLoading(false);
         });
@@ -44,14 +43,7 @@ export default function EditContact() {
     }
   }
 
-  return (
-    <>
-      <Presentation
-        isLoading={isLoading}
-        contactFormRef={contactFormRef}
-        contactName={contactName}
-        handleSubmit={handleSubmit}
-      />
-    </>
-  );
-}
+  return {
+    isLoading, contactName, contactForm, handleSubmit,
+  };
+};
