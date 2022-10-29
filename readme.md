@@ -25,3 +25,17 @@ ___
 ___
 
 ![image](https://user-images.githubusercontent.com/75763403/130329688-0e75f020-e74d-487c-8ee3-0e5c84744b97.png)
+
+___
+
+# Concepts
+
+<details>
+<summary>🗺️ DataMappers</summary>
+
+- A pattern to transfer bidirecional data between the *domain* and the *persistence*. In this application case, between the frontend and the backend.
+
+</details>
+
+
+---
