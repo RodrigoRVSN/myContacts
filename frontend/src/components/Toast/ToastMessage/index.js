@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, memo } from 'react';
 import { Container } from './styles';
 
 import xCircleIcon from '../../../assets/images/icons/x-circle.svg';
 import checkCircleIcon from '../../../assets/images/icons/check-circle.svg';
 
-export const ToastMessage = ({
+export const ToastMessage = memo(({
   message,
   onRemoveMessage,
   isLeaving,
@@ -37,7 +37,7 @@ export const ToastMessage = ({
       <strong>{message.text}</strong>
     </Container>
   );
-};
+});
 
 ToastMessage.propTypes = {
   message: PropTypes.shape({
