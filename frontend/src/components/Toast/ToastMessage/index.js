@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { Container } from './styles';
 
 import xCircleIcon from '../../../assets/images/icons/x-circle.svg';
@@ -9,21 +9,8 @@ export const ToastMessage = ({
   message,
   onRemoveMessage,
   isLeaving,
-  onAnimationEnd,
+  animatedRef,
 }) => {
-  const animationElementRef = useRef(null);
-
-  useEffect(() => {
-    const handleAnimationEnd = () => onAnimationEnd(message.id);
-
-    const elementRef = animationElementRef.current;
-    if (isLeaving) {
-      elementRef.addEventListener('animationend', handleAnimationEnd);
-    }
-
-    return () => elementRef.removeEventListener('animationend', handleAnimationEnd);
-  }, [isLeaving, message.id, onAnimationEnd]);
-
   useEffect(() => {
     const timeout = setTimeout(() => {
       onRemoveMessage(message.id);
@@ -43,7 +30,7 @@ export const ToastMessage = ({
       tabIndex={0}
       role="button"
       isLeaving={isLeaving}
-      ref={animationElementRef}
+      ref={animatedRef}
     >
       {message.type === 'danger' && <img src={xCircleIcon} alt="X" />}
       {message.type === 'success' && <img src={checkCircleIcon} alt="X" />}
@@ -61,5 +48,5 @@ ToastMessage.propTypes = {
   }).isRequired,
   onRemoveMessage: PropTypes.func.isRequired,
   isLeaving: PropTypes.bool.isRequired,
-  onAnimationEnd: PropTypes.func.isRequired,
+  animatedRef: PropTypes.object.isRequired,
 };
