@@ -13,24 +13,32 @@ export const useEditContact = () => {
   const safeAsyncAction = useSafeAsyncAction();
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const loadContacts = async () => {
       try {
-        const contact = await ContactsService.getContactById(id);
+        const contact = await ContactsService.getContactById(id, controller.signal);
 
         safeAsyncAction(() => {
           contactForm.current.setFieldValues(contact);
           setContactName(contact.name);
           setIsLoading(false);
         });
-      } catch {
-        safeAsyncAction(() => {
-          history.push('/');
-          toast({ type: 'danger', text: 'Contato nao existe!' });
-        });
+      } catch (error) {
+        if (!(error instanceof DOMException && error.name === 'AbortError')) {
+          safeAsyncAction(() => {
+            history.push('/');
+            toast({ type: 'danger', text: 'Contato nao existe!' });
+          });
+        }
       }
     };
 
     loadContacts();
+
+    return () => {
+      controller.abort();
+    };
   }, [history, id, safeAsyncAction]);
 
   async function handleSubmit(contact) {

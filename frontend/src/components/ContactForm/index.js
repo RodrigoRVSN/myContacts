@@ -87,9 +87,11 @@ export const ContactForm = forwardRef(({ buttonLabel = '', onSubmit }, ref) => {
   }
 
   useEffect(() => {
+    const controller = new AbortController();
+
     async function loadCategories() {
       try {
-        const categoriesList = await CategoriesService.listCategories();
+        const categoriesList = await CategoriesService.listCategories(controller.signal);
         setCategories(categoriesList);
       } catch {} finally {
         setIsLoadingCategories(false);
@@ -97,6 +99,10 @@ export const ContactForm = forwardRef(({ buttonLabel = '', onSubmit }, ref) => {
     }
 
     loadCategories();
+
+    return () => {
+      controller.abort();
+    };
   }, [setCategories, setIsLoadingCategories]);
 
   return (
