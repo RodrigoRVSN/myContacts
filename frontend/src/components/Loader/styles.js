@@ -56,7 +56,7 @@ export const Overlay = styled.div`
   justify-content: center;
   animation: ${fadeIn} 0.3s;
 
-  ${({ isLeaving }) => isLeaving && css`animation: ${fadeOut} 0.2s;`}
+  ${({ isLeaving }) => isLeaving && css`animation: ${fadeOut} 0.2s forwards;`}
 
   .loader {
     color: ${({ theme }) => theme.colors?.primary.light};

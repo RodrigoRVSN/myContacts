@@ -45,7 +45,7 @@ export const Container = styled.div`
   cursor: pointer;
   animation: ${fadeIn} 0.3s;
 
-  ${({ isLeaving }) => isLeaving && css`animation: ${fadeOut} 0.2s;`}
+  ${({ isLeaving }) => isLeaving && css`animation: ${fadeOut} 0.2s forwards;`}
 
   ${({ type }) => containerVariants[type] || containerVariants.default}
 
