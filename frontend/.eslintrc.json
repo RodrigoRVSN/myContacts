@@ -30,6 +30,7 @@
         ]
       }
     ],
+    "react/function-component-definition": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-no-bind": "off",
@@ -40,6 +41,7 @@
     "implicit-arrow-linebreak": "off",
     "react/forbid-prop-types": "off",
     "linebreak-style": 0,
+    "import/no-extraneous-dependencies": "off",
     "no-empty": ["error", { "allowEmptyCatch": true }]
   }
 }

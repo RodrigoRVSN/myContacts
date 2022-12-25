@@ -10,20 +10,18 @@ import { Container } from './styles';
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <ThemeProvider theme={defaultTheme}>
-          <GlobalStyles />
+    <BrowserRouter>
+      <ThemeProvider theme={defaultTheme}>
+        <GlobalStyles />
 
-          <ToastContainer />
+        <ToastContainer />
 
-          <Container>
-            <Header />
-            <Routes />
-          </Container>
-        </ThemeProvider>
-      </BrowserRouter>
-    </>
+        <Container>
+          <Header />
+          <Routes />
+        </Container>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 

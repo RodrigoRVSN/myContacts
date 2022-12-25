@@ -7,15 +7,13 @@ import { Container } from './styles';
 
 export function PageHeader({ title }) {
   return (
-    <>
-      <Container>
-        <Link to="/">
-          <img src={arrow} alt="arrow back" />
-          <span>Voltar</span>
-        </Link>
-        <h1>{title}</h1>
-      </Container>
-    </>
+    <Container>
+      <Link to="/">
+        <img src={arrow} alt="arrow back" />
+        <span>Voltar</span>
+      </Link>
+      <h1>{title}</h1>
+    </Container>
   );
 }
 
