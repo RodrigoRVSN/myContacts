@@ -208,5 +208,14 @@
 
 </details>
 
+---
+
+<details>
+<summary>⛓ Concurrent React</summary>
+
+- With this update in React v18, can have priority with a concurrent process.
+- The state change can be a `Urgent update` or a `Transition update`
+
+</details>
 
 ---
