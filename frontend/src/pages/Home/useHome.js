@@ -1,5 +1,6 @@
 import {
-  useCallback, useEffect, useMemo, useState,
+  useTransition,
+  useCallback, useEffect, useState,
 } from 'react';
 
 import ContactsService from '../../services/ContactsService';
@@ -14,13 +15,9 @@ export const useHome = () => {
   const [isDeleteModalVisible, setIsModalVisible] = useState(false);
   const [contactBeingDeleted, setContactBeingDeleted] = useState(null);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
+  const [filteredContacts, setFilteredContacts] = useState([]);
 
-  const filteredContacts = useMemo(
-    () =>
-      contacts.filter((contact) =>
-        contact.name.toLowerCase().includes(searchTerm.toLowerCase())),
-    [contacts, searchTerm],
-  );
+  const [isPending, startTransition] = useTransition();
 
   const loadContacts = useCallback(async () => {
     try {
@@ -29,6 +26,7 @@ export const useHome = () => {
 
       setError(false);
       setContacts(contactsList);
+      setFilteredContacts(contactsList);
     } catch (error) {
       setError(true);
       setContacts([]);
@@ -41,12 +39,19 @@ export const useHome = () => {
     loadContacts();
   }, [loadContacts]);
 
-  function handleToggleOrderBy() {
+  const handleToggleOrderBy = useCallback(() => {
     setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'));
-  }
+  }, []);
 
   function handleChangeSearchTerm(ev) {
-    setSearchTerm(ev.target.value);
+    const { value } = ev.target;
+
+    setSearchTerm(value);
+
+    startTransition(() => {
+      setFilteredContacts(contacts.filter((contact) =>
+        contact.name.toLowerCase().includes(value.toLowerCase())));
+    });
   }
 
   function handleTryAgain() {
@@ -58,10 +63,10 @@ export const useHome = () => {
     setContactBeingDeleted(null);
   }
 
-  function handleDeleteContact(contact) {
+  const handleDeleteContact = useCallback((contact) => {
     handleToggleDeleteModal();
     setContactBeingDeleted(contact);
-  }
+  }, []);
 
   async function handleConfirmDeleteContact() {
     try {
@@ -80,6 +85,7 @@ export const useHome = () => {
   }
 
   return {
+    isPending,
     isLoading,
     isDeleteModalVisible,
     contactBeingDeleted,
