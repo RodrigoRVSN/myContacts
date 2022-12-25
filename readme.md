@@ -11,20 +11,14 @@ ___
 
 # Tools used
 
-- Insomnia
-- Docker
-- Nodejs
-- Cors
+- Nodejs, Docker, Cors, PostgresSQL, Docker, Insomnia
+- React, React Router Dom, Event Emmitters
 
 ___
 
 # Images
 
 ![image](https://user-images.githubusercontent.com/75763403/130329676-7cf08927-e6d3-4553-8281-bcb14a20a0a3.png)
-
-___
-
-![image](https://user-images.githubusercontent.com/75763403/130329688-0e75f020-e74d-487c-8ee3-0e5c84744b97.png)
 
 ___
 
@@ -54,3 +48,15 @@ ___
 
 
 ---
+
+<details>
+<summary>📦 Update package versions</summary>
+
+1. Hover the packages in `package.json` to see the actual version 
+2. Use the VSCode extension `Version Lens` to check outdated versions
+3. Use the CLI Command `npm outdated`
+4. Use the package `npm-check-updates`
+
+We can see the versioning meanings in the site [Semantic Versioning](https://semver.org)
+
+</details>
