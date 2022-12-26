@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { SpinnerLoader } from './styles';
 
-export function LoadingSpinner({ size }) {
+export function LoadingSpinner({ size = 16 }) {
   return (
     <SpinnerLoader {...{ size }} />
   );
@@ -9,8 +9,4 @@ export function LoadingSpinner({ size }) {
 
 LoadingSpinner.propTypes = {
   size: PropTypes.number,
-};
-
-LoadingSpinner.defaultProps = {
-  size: 16,
 };

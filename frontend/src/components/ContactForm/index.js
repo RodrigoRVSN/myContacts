@@ -165,7 +165,3 @@ ContactForm.propTypes = {
   buttonLabel: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
 };
-
-ContactForm.defaultProps = {
-  buttonLabel: '',
-};
