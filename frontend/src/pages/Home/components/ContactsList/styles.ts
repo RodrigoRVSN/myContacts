@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ListHeader = styled.header`
+export const ListHeader = styled.header <{ orderBy: 'asc' | 'desc' }>`
     margin-top: 2rem;
     margin-bottom: 0.5rem;
 

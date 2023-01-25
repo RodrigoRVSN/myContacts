@@ -34,7 +34,7 @@ const round = keyframes`
   }
 `;
 
-export const SpinnerLoader = styled.div`
+export const SpinnerLoader = styled.div<{ size: number }>`
   color: ${({ theme }) => theme.colors?.primary.light};
   font-size: ${({ size }) => `${size}px`};
   width: 1em;

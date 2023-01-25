@@ -1,19 +1,20 @@
 import {
   useDeferredValue,
-  useCallback, useEffect, useState, useMemo,
+  useCallback, useEffect, useState, useMemo, ChangeEvent,
 } from 'react';
 
 import ContactsService from '../../services/ContactsService';
+import { IContact } from '../../types/IContact';
 import { toast } from '../../utils/toast';
 
 export const useHome = () => {
-  const [contacts, setContacts] = useState([]);
-  const [orderBy, setOrderBy] = useState('asc');
+  const [contacts, setContacts] = useState<IContact[]>([]);
+  const [orderBy, setOrderBy] = useState<'asc' | 'desc'>('asc');
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setError] = useState(false);
   const [isDeleteModalVisible, setIsModalVisible] = useState(false);
-  const [contactBeingDeleted, setContactBeingDeleted] = useState(null);
+  const [contactBeingDeleted, setContactBeingDeleted] = useState<IContact | null>(null);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
 
   const deferredSearchTerm = useDeferredValue(searchTerm);
@@ -25,10 +26,10 @@ export const useHome = () => {
     [contacts, deferredSearchTerm],
   );
 
-  const loadContacts = useCallback(async (signal) => {
+  const loadContacts = useCallback(async (signal?: AbortSignal) => {
     try {
       setIsLoading(true);
-      const contactsList = await ContactsService.listContacts(orderBy, signal);
+      const contactsList = await ContactsService.listContacts(orderBy, signal!);
 
       setError(false);
       setContacts(contactsList);
@@ -56,7 +57,7 @@ export const useHome = () => {
     setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'));
   }, []);
 
-  function handleChangeSearchTerm(ev) {
+  function handleChangeSearchTerm(ev: ChangeEvent<HTMLInputElement>) {
     setSearchTerm(ev.target.value);
   }
 
@@ -69,7 +70,7 @@ export const useHome = () => {
     setContactBeingDeleted(null);
   }
 
-  const handleDeleteContact = useCallback((contact) => {
+  const handleDeleteContact = useCallback((contact: IContact) => {
     handleToggleDeleteModal();
     setContactBeingDeleted(contact);
   }, []);
@@ -77,11 +78,13 @@ export const useHome = () => {
   async function handleConfirmDeleteContact() {
     try {
       setIsLoadingDelete(true);
-      await ContactsService.deleteContact(contactBeingDeleted.id);
+      await ContactsService.deleteContact(contactBeingDeleted!.id);
+
       toast({ type: 'success', text: 'Deletado!!' });
       handleToggleDeleteModal();
+
       setContacts((prevState) => prevState.filter(
-        (contact) => contact.id !== contactBeingDeleted.id,
+        (contact) => contact.id !== contactBeingDeleted!.id,
       ));
     } catch {
       toast({ type: 'error', text: 'Eita crabumco, erro!!' });

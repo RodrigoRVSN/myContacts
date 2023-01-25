@@ -1,9 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { ReactNode } from 'react';
 import { Container, Overlay, Footer } from './styles';
 import Button from '../Button';
 import { ReactPortal } from '../ReactPortal';
 import { useAnimationUnmount } from '../../hooks/useAnimationUnmount';
+
+type ModalProps = {
+  danger?: boolean,
+  title: string,
+  children: ReactNode,
+  isLoading?: boolean,
+  cancelLabel?: string,
+  confirmLabel?: string,
+  onCancel: () => void,
+  onConfirm: () => void,
+  isVisible: boolean,
+}
 
 export function Modal({
   danger = false,
@@ -15,7 +26,7 @@ export function Modal({
   onCancel,
   onConfirm,
   isVisible,
-}) {
+}: ModalProps) {
   const { animatedElementRef, shouldRender } = useAnimationUnmount(isVisible);
 
   if (!shouldRender) return null;
@@ -52,15 +63,3 @@ export function Modal({
     </ReactPortal>
   );
 }
-
-Modal.propTypes = {
-  danger: PropTypes.bool,
-  title: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-  isLoading: PropTypes.bool,
-  cancelLabel: PropTypes.string,
-  confirmLabel: PropTypes.string,
-  onCancel: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired,
-  isVisible: PropTypes.bool.isRequired,
-};

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAnimatedList } from '../../../hooks/useAnimatedList';
-import { toastEventManager } from '../../../utils/toast';
+import { toastEventManager, ToastParams } from '../../../utils/toast';
 import { ToastMessage } from '../ToastMessage';
 import { Container } from './styles';
 
@@ -12,7 +12,7 @@ export const ToastContainer = () => {
   } = useAnimatedList();
 
   useEffect(() => {
-    const handleAddToast = ({ type, text, duration }) => {
+    const handleAddToast = ({ type, text, duration }: ToastParams) => {
       setMessages((prevState) => [
         ...prevState,
         {

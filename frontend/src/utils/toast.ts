@@ -1,9 +1,9 @@
 import EventManager from '../lib/EventManager';
 
-type ToastParams = {
+export type ToastParams = {
   type: string
   text: string
-  duration: number
+  duration?: number
 }
 
 export const toastEventManager = new EventManager();

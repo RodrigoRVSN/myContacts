@@ -1,5 +1,7 @@
+import { ICategory } from "../../types/ICategory";
+
 class CategoryMapper {
-  toDomain(persistenceCategory) {
+  toDomain(persistenceCategory: ICategory) {
     return {
       id: persistenceCategory.id,
       name: persistenceCategory.name,

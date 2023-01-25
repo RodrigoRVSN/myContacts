@@ -1,18 +1,19 @@
-import PropTypes from 'prop-types';
+import { ChangeEvent } from 'react';
 import { Container } from './styles';
 
-export const InputSearch = ({ value, onChange }) => (
+type InputSearchProps = {
+  value: string,
+  onChange: (ev: ChangeEvent<HTMLInputElement>) => void,
+}
+
+
+export const InputSearch = ({ value, onChange }: InputSearchProps) => (
   <Container>
     <input
       value={value}
-      onChange={(ev) => onChange(ev)}
+      onChange={onChange}
       type="text"
       placeholder="Procure pelo contato"
     />
   </Container>
 );
-
-InputSearch.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-};

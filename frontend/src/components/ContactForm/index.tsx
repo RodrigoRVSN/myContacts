@@ -1,7 +1,6 @@
-import React, {
-  forwardRef, useEffect, useState, useImperativeHandle,
+import {
+  forwardRef, useEffect, useState, useImperativeHandle, FormEvent, ChangeEvent,
 } from 'react';
-import PropTypes from 'prop-types';
 
 import Button from '../Button';
 import { FormGroup } from '../FormGroup';
@@ -13,13 +12,20 @@ import useErrors from '../../hooks/useErrors';
 import formatPhone from '../../utils/formatPhone';
 import CategoriesService from '../../services/CategoriesService';
 import { useSafeAsyncState } from '../../hooks/useSafeAsyncState';
+import { DomainContact, IContact } from '../../types/IContact';
+import { ICategory } from '../../types/ICategory';
 
-export const ContactForm = forwardRef(({ buttonLabel = '', onSubmit }, ref) => {
+type ContactFormProps = {
+  buttonLabel: string,
+  onSubmit: (contact: DomainContact) => void,
+}
+
+export const ContactForm = forwardRef(({ buttonLabel = '', onSubmit }: ContactFormProps, ref) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [categoryId, setCategoryId] = useState('');
-  const [categories, setCategories] = useSafeAsyncState([]);
+  const [categories, setCategories] = useSafeAsyncState<ICategory[]>([]);
   const [isLoadingCategories, setIsLoadingCategories] = useSafeAsyncState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -31,7 +37,7 @@ export const ContactForm = forwardRef(({ buttonLabel = '', onSubmit }, ref) => {
   } = useErrors();
 
   useImperativeHandle(ref, () => ({
-    setFieldValues: (contact) => {
+    setFieldValues: (contact: IContact) => {
       setName(contact.name ?? '');
       setEmail(contact.email ?? '');
       setPhone(formatPhone(contact.phone ?? ''));
@@ -47,7 +53,7 @@ export const ContactForm = forwardRef(({ buttonLabel = '', onSubmit }, ref) => {
 
   const isFormValid = (name && errors.length === 0);
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
     setIsSubmitting(true);
@@ -59,7 +65,7 @@ export const ContactForm = forwardRef(({ buttonLabel = '', onSubmit }, ref) => {
     setIsSubmitting(false);
   }
 
-  function handleNameChange(event) {
+  function handleNameChange(event: ChangeEvent<HTMLInputElement>) {
     setName(event.target.value);
     if (!event.target.value) {
       setError({ field: 'name', message: 'Nome é obrigatório' });
@@ -68,7 +74,7 @@ export const ContactForm = forwardRef(({ buttonLabel = '', onSubmit }, ref) => {
     }
   }
 
-  function handleEmailChange(event) {
+  function handleEmailChange(event: ChangeEvent<HTMLInputElement>) {
     setEmail(event.target.value);
     if (event.target.value && !isEmailValid(event.target.value)) {
       setError({ field: 'email', message: 'E-mail inválido' });
@@ -77,12 +83,12 @@ export const ContactForm = forwardRef(({ buttonLabel = '', onSubmit }, ref) => {
     }
   }
 
-  function handlePhoneChange(event) {
+  function handlePhoneChange(event: ChangeEvent<HTMLInputElement>) {
     // phone.replace(/\D/g, '')
     setPhone(formatPhone(event.target.value));
   }
 
-  function handleCategoryChange(event) {
+  function handleCategoryChange(event: ChangeEvent<HTMLSelectElement>) {
     setCategoryId(event.target.value);
   }
 
@@ -134,9 +140,10 @@ export const ContactForm = forwardRef(({ buttonLabel = '', onSubmit }, ref) => {
           placeholder="Telefone"
           onChange={handlePhoneChange}
           value={phone}
-          maxLength="15"
+          maxLength={15}
           disabled={isSubmitting}
         />
+
       </FormGroup>
 
       <FormGroup isLoading={isLoadingCategories}>
@@ -160,8 +167,3 @@ export const ContactForm = forwardRef(({ buttonLabel = '', onSubmit }, ref) => {
     </Form>
   );
 });
-
-ContactForm.propTypes = {
-  buttonLabel: PropTypes.string,
-  onSubmit: PropTypes.func.isRequired,
-};

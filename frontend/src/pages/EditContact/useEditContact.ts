@@ -1,15 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSafeAsyncAction } from '../../hooks/useSafeAsyncAction';
 import ContactsService from '../../services/ContactsService';
+import { DomainContact, IContact } from '../../types/IContact';
 import { toast } from '../../utils/toast';
 
 export const useEditContact = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [contactName, setContactName] = useState('');
-  const { id } = useParams();
-  const history = useLocation();
-  const contactForm = useRef(null);
+  const { id } = useParams<{ id: string }>();
+
+  const navigate = useNavigate();
+  const contactForm = useRef<{setFieldValues: (contact: IContact) => void}>(null);
   const safeAsyncAction = useSafeAsyncAction();
 
   useEffect(() => {
@@ -17,17 +19,17 @@ export const useEditContact = () => {
 
     const loadContacts = async () => {
       try {
-        const contact = await ContactsService.getContactById(id, controller.signal);
+        const contact = await ContactsService.getContactById(String(id), controller.signal);
 
         safeAsyncAction(() => {
-          contactForm.current.setFieldValues(contact);
+          contactForm.current!.setFieldValues(contact);
           setContactName(contact.name);
           setIsLoading(false);
         });
       } catch (error) {
         if (!(error instanceof DOMException && error.name === 'AbortError')) {
           safeAsyncAction(() => {
-            history.push('/');
+            navigate('/');
             toast({ type: 'danger', text: 'Contato nao existe!' });
           });
         }
@@ -41,9 +43,9 @@ export const useEditContact = () => {
     };
   }, [history, id, safeAsyncAction]);
 
-  async function handleSubmit(contact) {
+  async function handleSubmit(contact: DomainContact) {
     try {
-      const { name } = await ContactsService.updateContact(id, contact);
+      const { name } = await ContactsService.updateContact(String(id), contact);
       setContactName(name);
       toast({ type: 'success', text: 'Contato editado com sucesso!', duration: 10000 });
     } catch (error) {

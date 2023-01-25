@@ -6,7 +6,7 @@ import { useIsMounted } from './useIsMounted';
 export const useSafeAsyncAction = () => {
   const isMounted = useIsMounted();
 
-  const safeAsyncAction = useCallback((callback) => {
+  const safeAsyncAction = useCallback((callback: () => void) => {
     if (isMounted()) {
       callback();
     }

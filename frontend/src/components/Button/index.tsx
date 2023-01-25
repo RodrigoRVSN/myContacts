@@ -1,10 +1,19 @@
-import PropTypes from 'prop-types';
 import { LoadingSpinner } from '../LoadingSpinner';
 import { StyledButton } from './styles';
+import { ReactNode } from 'react';
+
+type ButtonProps = {
+  type?: "button" | "submit" | "reset" | undefined
+  disabled?: boolean,
+  isLoading?: boolean,
+  danger?: boolean,
+  onClick?: () => void,
+  children: ReactNode,
+}
 
 export default function Button({
-  type, disabled, isLoading, children, onClick, danger,
-}) {
+  type = 'button', disabled = false, isLoading = false, children, onClick = () => {}, danger = false,
+}: ButtonProps) {
   return (
     <StyledButton
       disabled={disabled || isLoading}
@@ -18,18 +27,4 @@ export default function Button({
 }
 
 Button.propTypes = {
-  type: PropTypes.string,
-  disabled: PropTypes.bool,
-  isLoading: PropTypes.bool,
-  danger: PropTypes.bool,
-  onClick: PropTypes.func,
-  children: PropTypes.node.isRequired,
-};
-
-Button.defaultProps = {
-  type: 'button',
-  disabled: false,
-  isLoading: false,
-  danger: false,
-  onClick: null,
 };

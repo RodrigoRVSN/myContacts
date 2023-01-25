@@ -10,7 +10,7 @@ export const useAnimatedList = (initialValue = []) => {
   const animatedRefs = useRef(new Map());
   const animationEndListeners = useRef(new Map());
 
-  const handleRemoveItem = useCallback((id) => {
+  const handleRemoveItem = useCallback((id: string) => {
     setPendingRemovalItemsIds((prevState) => [...prevState, id]);
   }, []);
 
@@ -51,7 +51,7 @@ export const useAnimatedList = (initialValue = []) => {
     };
   }, []);
 
-  const getAnimatedRef = useCallback((itemId) => {
+  const getAnimatedRef = useCallback((itemId: string) => {
     let animatedRef = animatedRefs.current.get(itemId);
 
     if (!animatedRef) {

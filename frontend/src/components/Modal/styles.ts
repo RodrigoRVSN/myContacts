@@ -20,7 +20,7 @@ const scaleOut = keyframes`
   to { transform: scale(0); }
 `;
 
-export const Overlay = styled.div`
+export const Overlay = styled.div<{ isLeaving: boolean }>`
   background: rgba(0,0,0, 0.6);
   backdrop-filter: blur(7px);
   position: fixed;
@@ -36,7 +36,7 @@ export const Overlay = styled.div`
   ${({ isLeaving }) => isLeaving && css`animation: ${fadeOut} 0.2s;`}
 `;
 
-export const Container = styled.div`
+export const Container = styled.div<{ danger: boolean, isLeaving: boolean }>`
   background: ${({ theme }) => theme.colors?.primary.light};
   border-radius: 0.25rem;
   padding: 1.5rem;

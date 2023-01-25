@@ -2,11 +2,13 @@ import APIError from '../../errors/APIError';
 import delay from '../../utils/delay';
 
 class HttpClient {
-  constructor(baseURL) {
+  baseURL: string;
+
+  constructor(baseURL: string) {
     this.baseURL = baseURL;
   }
 
-  get(path, options) {
+  get(path: string, options: RequestInit) {
     return this.makeRequest(path, {
       method: 'GET',
       headers: options?.headers,
@@ -14,7 +16,7 @@ class HttpClient {
     });
   }
 
-  post(path, options) {
+  post(path: string, options: RequestInit) {
     return this.makeRequest(path, {
       method: 'POST',
       body: options?.body,
@@ -22,7 +24,7 @@ class HttpClient {
     });
   }
 
-  put(path, options) {
+  put(path: string, options: RequestInit) {
     return this.makeRequest(path, {
       method: 'PUT',
       body: options?.body,
@@ -30,14 +32,14 @@ class HttpClient {
     });
   }
 
-  delete(path, options) {
+  delete(path: string, options?: RequestInit) {
     return this.makeRequest(path, {
       method: 'DELETE',
       headers: options?.headers,
     });
   }
 
-  async makeRequest(path, options) {
+  async makeRequest(path: string, options: RequestInit) {
     await delay(500);
 
     const headers = new Headers();

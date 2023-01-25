@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import { Container } from './styles';
 import { LoadingSpinner } from '../LoadingSpinner';
 
-export function FormGroup({ children, error = null, isLoading = false }) {
+type FormGroupProps = {
+  children: ReactNode,
+  error?: ReactNode,
+  isLoading?: boolean,
+}
+
+export function FormGroup({ children, error = null, isLoading = false }: FormGroupProps) {
   return (
     <Container>
       <div className="form-item">
@@ -20,9 +26,3 @@ export function FormGroup({ children, error = null, isLoading = false }) {
     </Container>
   );
 }
-
-FormGroup.propTypes = {
-  children: PropTypes.node.isRequired,
-  error: PropTypes.node,
-  isLoading: PropTypes.bool,
-};

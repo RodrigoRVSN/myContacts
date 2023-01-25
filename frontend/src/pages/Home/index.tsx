@@ -41,10 +41,10 @@ export function Home() {
       <Loader isLoading={isLoading} />
 
       {hasContacts && (
-      <InputSearch
-        value={searchTerm}
-        onChange={handleChangeSearchTerm}
-      />
+        <InputSearch
+          value={searchTerm}
+          onChange={handleChangeSearchTerm}
+        />
       )}
 
       <Header

@@ -1,7 +1,12 @@
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+import { ReactNode } from 'react';
 
-export function ReactPortal({ containerId = 'portal-root', children }) {
+type ReactPortalProps = {
+  containerId?: string,
+  children: ReactNode,
+}
+
+export function ReactPortal({ containerId = 'portal-root', children }: ReactPortalProps) {
   let container = document.getElementById(containerId);
 
   if (!container) {
@@ -12,8 +17,3 @@ export function ReactPortal({ containerId = 'portal-root', children }) {
 
   return ReactDOM.createPortal(children, container);
 }
-
-ReactPortal.propTypes = {
-  containerId: PropTypes.string,
-  children: PropTypes.node.isRequired,
-};

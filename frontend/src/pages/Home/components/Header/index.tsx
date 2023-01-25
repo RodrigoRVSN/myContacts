@@ -1,8 +1,13 @@
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Container } from './styles';
 
-export const Header = ({ hasError, qtyContacts, qtyFilteredContacts }) => {
+type HeaderProps = {
+  hasError: boolean,
+  qtyContacts: number,
+  qtyFilteredContacts: number,
+}
+
+export const Header = ({ hasError, qtyContacts, qtyFilteredContacts }: HeaderProps) => {
   const hasContacts = qtyContacts > 0 ? 'space-between' : 'center';
   const alignment = hasError ? 'flex-end' : hasContacts;
 
@@ -20,10 +25,4 @@ export const Header = ({ hasError, qtyContacts, qtyFilteredContacts }) => {
       <Link to="/new">Novo Contato</Link>
     </Container>
   );
-};
-
-Header.propTypes = {
-  hasError: PropTypes.bool.isRequired,
-  qtyContacts: PropTypes.number.isRequired,
-  qtyFilteredContacts: PropTypes.number.isRequired,
 };

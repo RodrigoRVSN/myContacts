@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { SpinnerLoader } from './styles';
 
-export function LoadingSpinner({ size = 16 }) {
+type LoadingSpinnerProps = {
+  size?: number
+}
+
+export function LoadingSpinner({ size = 16 }: LoadingSpinnerProps) {
   return (
     <SpinnerLoader {...{ size }} />
   );
 }
-
-LoadingSpinner.propTypes = {
-  size: PropTypes.number,
-};

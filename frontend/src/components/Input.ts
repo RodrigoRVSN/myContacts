@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export default styled.input`
+export default styled.input <{ error?: string }>`
   width: 100%;
   border: none;
   background: ${({ theme }) => theme.colors?.primary.dark};

@@ -1,11 +1,13 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import { useAnimationUnmount } from '../../hooks/useAnimationUnmount';
 import { LoadingSpinner } from '../LoadingSpinner';
 import { ReactPortal } from '../ReactPortal';
 import { Overlay } from './styles';
 
-export function Loader({ isLoading }) {
+type LoaderProps = {
+  isLoading: boolean
+}
+
+export function Loader({ isLoading }: LoaderProps) {
   const { animatedElementRef, shouldRender } = useAnimationUnmount(isLoading);
 
   if (!shouldRender) {
@@ -21,7 +23,3 @@ export function Loader({ isLoading }) {
     </ReactPortal>
   );
 }
-
-Loader.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
-};

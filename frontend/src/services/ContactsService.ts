@@ -1,36 +1,39 @@
+import { DomainContact } from '../types/IContact';
 import ContactMapper from './mappers/ContactMapper';
 import HttpClient from './utils/HttpClient';
 
 class ContactsService {
+  httpClient: HttpClient;
+
   constructor() {
     this.httpClient = new HttpClient('http://localhost:5555');
   }
 
-  async listContacts(orderBy, signal) {
+  async listContacts(orderBy: 'asc' | 'desc', signal: AbortSignal) {
     const contacts = await this.httpClient.get(`/contacts?orderBy=${orderBy || 'asc'}`, { signal });
 
     return contacts.map(ContactMapper.toDomain);
   }
 
-  async getContactById(id, signal) {
+  async getContactById(id: string, signal: AbortSignal) {
     const contact = await this.httpClient.get(`/contacts/${id}`, { signal });
 
     return ContactMapper.toDomain(contact);
   }
 
-  createContact(contact) {
-    const body = ContactMapper.toPersistence(contact);
+  createContact(contact: DomainContact) {
+    const body = ContactMapper.toPersistence(contact) as unknown as BodyInit;
 
     return this.httpClient.post('/contacts/', { body });
   }
 
-  updateContact(id, contact) {
-    const body = ContactMapper.toPersistence(contact);
+  updateContact(id: string, contact: DomainContact) {
+    const body = ContactMapper.toPersistence(contact) as unknown as BodyInit;
 
-    return this.httpClient.put(`/contacts/${id}`, { body });
+    return this.httpClient.put(`/contacts/${id}`, { body })
   }
 
-  deleteContact(id) {
+  deleteContact(id: string) {
     return this.httpClient.delete(`/contacts/${id}`);
   }
 }

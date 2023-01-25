@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.header`
+export const Container = styled.header<{ justifyContent: string }>`
   display: flex;
   justify-content: ${({ justifyContent }) => justifyContent};
   align-items: center;

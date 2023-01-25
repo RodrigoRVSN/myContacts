@@ -1,15 +1,16 @@
-import { useRef } from 'react';
+import { FormEventHandler, MutableRefObject, useRef } from 'react';
 import ContactsService from '../../services/ContactsService';
+import { DomainContact } from '../../types/IContact';
 import { toast } from '../../utils/toast';
 
 export const useNewContact = () => {
-  const contactFormRef = useRef(null);
+  const contactFormRef = useRef<{resetFields: () => void}>()
 
-  async function handleSubmit(contact) {
+  async function handleSubmit(contact: DomainContact) {
     try {
       await ContactsService.createContact(contact);
 
-      contactFormRef.current.resetFields();
+      contactFormRef.current!.resetFields();
 
       toast({ type: 'success', text: 'Cadastro efetuado!', duration: 10000 });
     } catch (error) {
@@ -19,3 +20,4 @@ export const useNewContact = () => {
 
   return { contactFormRef, handleSubmit };
 };
+

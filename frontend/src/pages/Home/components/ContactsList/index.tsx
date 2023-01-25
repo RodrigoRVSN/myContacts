@@ -6,16 +6,24 @@ import { Card, ListHeader } from './styles';
 import arrow from '../../../../assets/images/icons/arrow.svg';
 import edit from '../../../../assets/images/icons/edit.svg';
 import trash from '../../../../assets/images/icons/trash.svg';
+import { IContact } from '../../../../types/IContact';
+
+type ContactsListProps = {
+  filteredContacts: IContact[],
+  orderBy: 'asc' | 'desc',
+  onToggleOrderBy: () => void,
+  onDeleteContact: (contact: IContact) => void,
+}
 
 export const ContactsList = memo(({
   filteredContacts, orderBy, onToggleOrderBy, onDeleteContact,
-}) => (
+}: ContactsListProps) => (
   <>
     {filteredContacts.length > 0 && (
       <ListHeader orderBy={orderBy}>
         <button onClick={onToggleOrderBy} type="button">
           <span>Nome</span>
-          <img src={arrow} alt="Arrow" />
+          <img src={String(arrow)} alt="Arrow" />
         </button>
       </ListHeader>
     )}
@@ -36,21 +44,14 @@ export const ContactsList = memo(({
 
         <div className="actions">
           <Link to={`/edit/${contact.id}`}>
-            <img src={edit} alt="edit" />
+            <img src={String(edit)} alt="edit" />
           </Link>
 
           <button type="button" onClick={() => onDeleteContact(contact)}>
-            <img src={trash} alt="trash" />
+            <img src={String(trash)} alt="trash" />
           </button>
         </div>
       </Card>
     ))}
   </>
 ));
-
-ContactsList.propTypes = {
-  filteredContacts: PropTypes.array.isRequired,
-  orderBy: PropTypes.string.isRequired,
-  onToggleOrderBy: PropTypes.func.isRequired,
-  onDeleteContact: PropTypes.func.isRequired,
-};
