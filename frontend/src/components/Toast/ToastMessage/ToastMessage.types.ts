@@ -1,3 +1,5 @@
+import { RefObject } from "react"
+
 export type ToastMessageParams = {
   text: string,
   type: 'default' | 'success' | 'danger',
@@ -11,5 +13,5 @@ export type ToastMessageProps = {
   message: ToastMessageParams,
   onRemoveMessage: (messageId: number) => void,
   isLeaving: boolean,
-  animatedRef: object,
+  animatedRef: RefObject<HTMLDivElement>,
 }

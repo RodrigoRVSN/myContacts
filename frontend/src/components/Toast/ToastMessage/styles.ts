@@ -1,4 +1,7 @@
 import styled, { css, keyframes } from 'styled-components';
+import type { ToastMessageParams } from './ToastMessage.types';
+
+type ContainerProps = Pick<ToastMessageParams, 'type'> & { isLeaving: boolean }
 
 const fadeIn = keyframes`
   from {
@@ -34,7 +37,7 @@ const containerVariants = {
   `,
 };
 
-export const Container = styled.div`
+export const Container = styled.div<ContainerProps>`
   padding: 1rem 2rem;
   color: #FFF;
   border-radius: 0.25rem;

@@ -1,5 +1,4 @@
-import React, { ReactNode } from 'react';
-import PropTypes from 'prop-types';
+import { ReactNode } from 'react';
 import { Container } from './styles';
 import { LoadingSpinner } from '../LoadingSpinner';
 

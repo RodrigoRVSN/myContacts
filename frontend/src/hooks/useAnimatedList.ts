@@ -1,10 +1,15 @@
 import {
   useEffect,
-  createRef, useCallback, useRef, useState,
+  createRef, useCallback, useRef, useState, RefObject,
 } from 'react';
 
 type Identifier = {
   id: number
+}
+
+type RenderItemProps = {
+  isLeaving: boolean
+  animatedRef: RefObject<HTMLDivElement>
 }
 
 export const useAnimatedList = <T extends Identifier>(initialValue = []) => {
@@ -66,14 +71,14 @@ export const useAnimatedList = <T extends Identifier>(initialValue = []) => {
     return animatedRef;
   }, []);
 
+  const renderList = useCallback(
+    (renderItem: (message: T, { isLeaving, animatedRef }: RenderItemProps) => JSX.Element) => items.map((item) => {
+      console.log(renderItem)
+      const isLeaving = pendingRemovalItemsIds.includes(Number(item.id));
+      const animatedRef = getAnimatedRef(Number(item.id));
 
-  const renderList = useCallback((renderItem: (message: T, b: any) => JSX.Element) => items.map((item) => {
-    console.log(renderItem)
-    const isLeaving = pendingRemovalItemsIds.includes(Number(item.id));
-    const animatedRef = getAnimatedRef(Number(item.id));
-
-    return renderItem(item, { isLeaving, animatedRef });
-  }), [getAnimatedRef, items, pendingRemovalItemsIds]);
+      return renderItem(item, { isLeaving, animatedRef });
+    }), [getAnimatedRef, items, pendingRemovalItemsIds]);
 
   /* useEffect(() => {
     const handleAnimationEnd = () => onAnimationEnd(message.id);

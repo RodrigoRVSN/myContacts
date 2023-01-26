@@ -11,7 +11,6 @@ export const ToastMessage = memo(({
   isLeaving,
   animatedRef,
 }: ToastMessageProps) => {
-  console.log(message)
   useEffect(() => {
     const timeout = setTimeout(() => {
       onRemoveMessage(message.id);

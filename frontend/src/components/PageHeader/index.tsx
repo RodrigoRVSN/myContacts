@@ -14,6 +14,7 @@ export function PageHeader({ title }: PageHeaderProps) {
         <img src={String(arrow)} alt="arrow back" />
         <span>Voltar</span>
       </Link>
+
       <h1>{title}</h1>
     </Container>
   );

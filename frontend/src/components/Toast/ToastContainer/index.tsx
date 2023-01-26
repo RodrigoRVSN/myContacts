@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useAnimatedList } from '../../../hooks/useAnimatedList';
 import { toastEventManager } from '../../../utils/toast';
 import { ToastMessage } from '../ToastMessage';
-import type { ToastMessageParams, ToastEvent } from '../ToastMessage/ToastMessage.types';
+import { ToastMessageParams, ToastEvent } from '../ToastMessage/ToastMessage.types';
 import { Container } from './styles';
 
 export const ToastContainer = () => {
