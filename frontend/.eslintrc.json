@@ -39,10 +39,14 @@
     "react-hooks/exhaustive-deps": "warn",
     "class-methods-use-this": "off",
     "implicit-arrow-linebreak": "off",
-    "react/forbid-prop-types": "off",
     "linebreak-style": 0,
     "import/no-extraneous-dependencies": "off",
     "react/require-default-props": "off",
-    "no-empty": ["error", { "allowEmptyCatch": true }]
+    "no-empty": [
+      "error",
+      {
+        "allowEmptyCatch": true
+      }
+    ]
   }
 }

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { memo } from 'react';
 import { Card, ListHeader } from './styles';
