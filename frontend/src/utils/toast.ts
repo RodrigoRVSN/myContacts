@@ -1,13 +1,8 @@
+import type { ToastEvent } from '../components/Toast/ToastMessage/ToastMessage.types';
 import EventManager from '../lib/EventManager';
 
-export type ToastParams = {
-  type: string
-  text: string
-  duration?: number
-}
+export const toastEventManager = new EventManager<ToastEvent>();
 
-export const toastEventManager = new EventManager();
-
-export const toast = ({ type, text, duration }: ToastParams) => {
+export const toast = ({ type, text, duration }: ToastEvent) => {
   toastEventManager.emit('addtoast', { type, text, duration });
 };

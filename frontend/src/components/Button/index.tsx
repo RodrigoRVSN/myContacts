@@ -12,7 +12,7 @@ type ButtonProps = {
 }
 
 export default function Button({
-  type = 'button', disabled = false, isLoading = false, children, onClick = () => {}, danger = false,
+  type = 'button', disabled = false, isLoading = false, children, onClick = () => { }, danger = false,
 }: ButtonProps) {
   return (
     <StyledButton
@@ -25,6 +25,3 @@ export default function Button({
     </StyledButton>
   );
 }
-
-Button.propTypes = {
-};

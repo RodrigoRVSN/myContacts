@@ -3,19 +3,7 @@ import { Container } from './styles';
 
 import xCircleIcon from '../../../assets/images/icons/x-circle.svg';
 import checkCircleIcon from '../../../assets/images/icons/check-circle.svg';
-
-type ToastMessageProps = {
-  message: {
-    text: string,
-    type: 'default' | 'success' | 'danger',
-    id: number,
-    duration?: number,
-  },
-  onRemoveMessage: (messageId: number) => void,
-  isLeaving: boolean,
-  animatedRef: object,
-}
-
+import type { ToastMessageProps } from './ToastMessage.types';
 
 export const ToastMessage = memo(({
   message,
@@ -23,6 +11,7 @@ export const ToastMessage = memo(({
   isLeaving,
   animatedRef,
 }: ToastMessageProps) => {
+  console.log(message)
   useEffect(() => {
     const timeout = setTimeout(() => {
       onRemoveMessage(message.id);

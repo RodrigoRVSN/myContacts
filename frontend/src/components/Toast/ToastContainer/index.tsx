@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useAnimatedList } from '../../../hooks/useAnimatedList';
-import { toastEventManager, ToastParams } from '../../../utils/toast';
+import { toastEventManager } from '../../../utils/toast';
 import { ToastMessage } from '../ToastMessage';
+import type { ToastMessageParams, ToastEvent } from '../ToastMessage/ToastMessage.types';
 import { Container } from './styles';
 
 export const ToastContainer = () => {
@@ -9,10 +10,10 @@ export const ToastContainer = () => {
     setItems: setMessages,
     handleRemoveItem,
     renderList,
-  } = useAnimatedList();
+  } = useAnimatedList<ToastMessageParams>();
 
   useEffect(() => {
-    const handleAddToast = ({ type, text, duration }: ToastParams) => {
+    const handleAddToast = ({ type, text, duration }: ToastEvent) => {
       setMessages((prevState) => [
         ...prevState,
         {

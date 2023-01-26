@@ -1,15 +1,13 @@
-import { ToastParams } from '../utils/toast'
+type IListener<T> = (payload: T) => void
 
-type IListener = (payload: ToastParams) => void
-
-export default class EventManager {
-  listeners: Map<unknown, Array<IListener>>;
+export default class EventManager<T> {
+  listeners: Map<unknown, Array<IListener<T>>>;
 
   constructor() {
     this.listeners = new Map();
   }
 
-  on(event: string, listener: IListener) {
+  on(event: string, listener: IListener<T>) {
     if (!this.listeners.has(event)) {
       this.listeners.set(event, []);
     }
@@ -17,15 +15,15 @@ export default class EventManager {
     this.listeners.get(event)?.push(listener);
   }
 
-  emit(event: string, payload: ToastParams) {
+  emit(event: string, payload: T) {
     if (!this.listeners.has(event)) return;
 
-    this.listeners.get(event)?.forEach((listener: IListener) => {
+    this.listeners.get(event)?.forEach((listener: IListener<T>) => {
       listener(payload);
     });
   }
 
-  removeListener(event: string, listenerToRemove: IListener) {
+  removeListener(event: string, listenerToRemove: IListener<T>) {
     const listeners = this.listeners.get(event);
 
     if (!listeners) return;

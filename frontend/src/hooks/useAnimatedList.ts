@@ -3,18 +3,22 @@ import {
   createRef, useCallback, useRef, useState,
 } from 'react';
 
-export const useAnimatedList = (initialValue = []) => {
-  const [pendingRemovalItemsIds, setPendingRemovalItemsIds] = useState(initialValue);
-  const [items, setItems] = useState([]);
+type Identifier = {
+  id: number
+}
 
+export const useAnimatedList = <T extends Identifier>(initialValue = []) => {
+  const [pendingRemovalItemsIds, setPendingRemovalItemsIds] = useState<number[]>(initialValue);
+  const [items, setItems] = useState<T[]>([]);
+  console.log({ items })
   const animatedRefs = useRef(new Map());
   const animationEndListeners = useRef(new Map());
 
-  const handleRemoveItem = useCallback((id: string) => {
+  const handleRemoveItem = useCallback((id: number) => {
     setPendingRemovalItemsIds((prevState) => [...prevState, id]);
   }, []);
 
-  const handleAnimationEnd = useCallback((itemId) => {
+  const handleAnimationEnd = useCallback((itemId: number) => {
     const removeListener = animationEndListeners.current.get(itemId);
     removeListener();
 
@@ -51,7 +55,7 @@ export const useAnimatedList = (initialValue = []) => {
     };
   }, []);
 
-  const getAnimatedRef = useCallback((itemId: string) => {
+  const getAnimatedRef = useCallback((itemId: number) => {
     let animatedRef = animatedRefs.current.get(itemId);
 
     if (!animatedRef) {
@@ -62,9 +66,11 @@ export const useAnimatedList = (initialValue = []) => {
     return animatedRef;
   }, []);
 
-  const renderList = useCallback((renderItem) => items.map((item) => {
-    const isLeaving = pendingRemovalItemsIds.includes(item.id);
-    const animatedRef = getAnimatedRef(item.id);
+
+  const renderList = useCallback((renderItem: (message: T, b: any) => JSX.Element) => items.map((item) => {
+    console.log(renderItem)
+    const isLeaving = pendingRemovalItemsIds.includes(Number(item.id));
+    const animatedRef = getAnimatedRef(Number(item.id));
 
     return renderItem(item, { isLeaving, animatedRef });
   }), [getAnimatedRef, items, pendingRemovalItemsIds]);
