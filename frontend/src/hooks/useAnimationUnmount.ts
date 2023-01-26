@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 export const useAnimationUnmount = (isVisible: boolean) => {
   const [shouldRender, setShouldRender] = useState(isVisible);
-  const animatedElementRef = useRef<typeof window>(null);
+  const animatedElementRef = useRef<HTMLDivElement & typeof window>(null);
 
   useEffect(() => {
     if (isVisible) {

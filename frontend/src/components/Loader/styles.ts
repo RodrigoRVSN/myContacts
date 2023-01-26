@@ -44,7 +44,7 @@ const fadeOut = keyframes`
   to { opacity: 0; }
 `;
 
-export const Overlay = styled.div`
+export const Overlay = styled.div<{ isLeaving: boolean }>`
   width: 100%;
   height: 100%;
   position: fixed;
