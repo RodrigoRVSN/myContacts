@@ -15,7 +15,6 @@ type RenderItemProps = {
 export const useAnimatedList = <T extends Identifier>(initialValue = []) => {
   const [pendingRemovalItemsIds, setPendingRemovalItemsIds] = useState<number[]>(initialValue);
   const [items, setItems] = useState<T[]>([]);
-  console.log({ items })
   const animatedRefs = useRef(new Map());
   const animationEndListeners = useRef(new Map());
 
@@ -73,7 +72,6 @@ export const useAnimatedList = <T extends Identifier>(initialValue = []) => {
 
   const renderList = useCallback(
     (renderItem: (message: T, { isLeaving, animatedRef }: RenderItemProps) => JSX.Element) => items.map((item) => {
-      console.log(renderItem)
       const isLeaving = pendingRemovalItemsIds.includes(Number(item.id));
       const animatedRef = getAnimatedRef(Number(item.id));
 
