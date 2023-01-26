@@ -10,7 +10,7 @@ export default createGlobalStyle`
 
   body {
     background: ${({ theme }) => theme.colors.background};
-    color: ${({ theme }) => theme.colors.lighter};
+    color: ${({ theme }) => theme.colors.primary.lighter};
     font-size: 1rem;
   }
 

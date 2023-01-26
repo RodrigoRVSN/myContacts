@@ -14,4 +14,4 @@ export default {
       dark: '#ba0c0c',
     },
   },
-};
+} as const
