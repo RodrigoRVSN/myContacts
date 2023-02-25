@@ -4,25 +4,24 @@
 
   - With `ReactDOM.createPortal` we can create a portal using a `id` in `index.html` to overwrite elements of `id root`
   - With that, we can ignore CSS rules to do overlays.
-  - Used with Loaders, Modals, etc.
-</details>
+  - Some examples are Loaders, Modals, etc.
 
+</details>
 
 ---
 
 <details>
 <summary>❌ Error treatment</summary>
 
-  ## Beneficies of APIError.js (APIError extends Error)
+Beneficies of APIError.js (APIError extends Error):
 
-  1. Semantic
-  2. Conditional control with `instanceof APIError` (Business Rules)
-  3. Overwirte methods and attributes of Error
+1. Semantic
+2. Conditional control with `instanceof APIError` (Business Rules)
+3. Overwirte methods and attributes of `Error`
 
 </details>
 
 ---
-
 
 <details>
 <summary>🔨 Service Layer</summary>
@@ -107,17 +106,23 @@
 ---
 
   ## 🧠 useMemo x useCallback
-  ## `useMemo`
+
+  ### `useMemo`
   - Re-render the return of the callback function in `prevState !== nextState`
-  - If i want to memorize informations
-  ## `useCallback`
+  - If i want to memorize informations (return)
+
+  ### `useCallback`
   - Re-render the callback function in `prevState !== nextState`
   - If i want to memorize functions
+
   ## 💻 useEffect x useLayoutEffect
-  ## `useEffect`
+
+  ### `useEffect`
   - Don't Lock renderizing, because is assynchronous and executed after layout rendering.
-  ## `useLayoutEffect`
+
+  ### `useLayoutEffect`
   - Lock renderizing, because is synchronous and executed before layout rendering.
+
 </details>
 
 ---
@@ -147,6 +152,7 @@
 
   - Using [SVGOMG - SVGO's Missing GUI (jakearchibald.github.io)](https://jakearchibald.github.io/svgomg/) we can optimize svg's content.
   - With this, we make the application render faster (less bytes to download in the browser)
+
 </details>
 
 ---
@@ -155,7 +161,7 @@
 <summary>💼 Businesses Rules</summary>
 
   - We need to apply the business rules in the Back-end and the Front-end.
-  - In the client side, we not send invalid informations, like a e-mail without `@` . With this, we save unnecessary recurses from the Back-end. In the Back-end Serverless, has so much more impact.
+  - In the client side, we not send invalid informations, like a e-mail without `@` . With this, we save unnecessary recurses from the Back-end. In a Back-end Serverless, has so much more impact.
 </details>
 
 ---
@@ -163,9 +169,9 @@
 <details>
 <summary>🌐 HTTP</summary>
 
-  - SOP -> Same Origin Policy (Política de mesma Origem) in navigators;
-  - CORS -> Cross-Origin Resource Sharing (Compartilhamento de Recursos de Origens Cruzadas) - header who can flexibilize the SOP;
-  - Origin: *protocol://domain:port*
+  - **SOP** -> Same Origin Policy (Política de mesma Origem) in navigators;
+  - **CORS** -> Cross-Origin Resource Sharing (Compartilhamento de Recursos de Origens Cruzadas) - header who can flexibilize the SOP;
+  - **Origin**: *protocol://domain:port*
 </details>
 
 ---
@@ -173,7 +179,7 @@
 <details>
 <summary>🆚 Simple vs Preflighted requests</summary>
 
-  * With this, the browser don't make Preflighted requests (like DELETE) in the Back-end when we get a Not Permitted error, f.e.
+  - With this, the browser don't make Preflighted requests (like DELETE) in the Back-end when we get a Not Permitted error, f.e.
   - Simple → GET, HEAD, POST
   - Preflighted → Others
 
